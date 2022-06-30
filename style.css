@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	padding: 10px;
+	font-family: 'Permanent Marker', cursive;
+	background: #1f1f1f;
+	color: #ffff;	
+}
+
+h1 {
+	font-size: 50px;
+	margin-bottom: 20px;
+}
+
+#gameField {
+	display: flex;
+	flex-direction: column;
+	min-height: 500px;
+	min-width: 500px;
+	border: 1px solid white;
+}
+
+
+.row {
+	display: flex;
+	flex-direction: row;
+	
+}
+
+.cell {
+	display: flex;
+	border: 1px solid white;
+	min-height: calc(500px / 4);
+	min-width:  calc(500px / 4);
+	justify-content: center;
+	align-items: center;
+	
+}
+
+#navigation {
+	display: flex;
+	flex-direction: row;
+	justify-items: space-between;
+	align-items: center;
+	font-size: 25px;
+	margin-top: 50px;
+	cursor: pointer;
+}
+
+#navigation p {
+	margin-right: 15px;
+}
+
+
+#lifeArea {
+	display: flex;
+	flex-direction: row;
+	min-height: 50px;
+	min-width: 200px;
+}
+
+.heart {
+	min-width: calc(100% / 3);
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.heart svg {
+	min-width: calc(100% / 3);
+	height: 30px;
+	fill: red;
+}
+
+
+#buttonArea {
+	margin-top: 50px;
+}
+
+#startGame {
+	min-height: 70px;
+	min-width: 300px;
+	font-family: 'Permanent Marker', cursive;
+	font-size: 50px;
+	cursor: pointer;
+	border: 3px solid white;
+	color: white;
+	background: none;
+	
+}
+
+#startGame:hover {
+	border: 3px solid red;;
+	color: red;;
+}
+
+
+.cell svg {
+	height: 90px;
+	width: 90px;
+	fill: white;
+}
+
+
+@media (max-width: 600px) {
+	#gameField {
+		min-height: 300px;
+		min-width: 300px;
+		
+	}
+
+	.cell {
+		min-height: calc(300px / 4);
+		min-width: calc(300px / 4);
+	}
+
+	h1 {
+		font-size: 30px;
+		margin-bottom: 20px;
+	}
+	
+	#navigation {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.cell svg {
+		height: 50px;
+		width: 50px;
+	}
+	
+
+
+	
+}
+
+
