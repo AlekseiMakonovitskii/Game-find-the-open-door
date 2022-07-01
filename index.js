@@ -19,8 +19,6 @@ let cellId;
 
 const conditions = [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ]
 
-const pickedCellIds =[];
-
 const cellObjs = [
 	{
 		id: 'cell1',
@@ -103,7 +101,6 @@ const cellObjs = [
 		link: cells[0],
 	}
 ]
-	
 
 const preparedFiled = () => {
 	for(cell of cells) {
@@ -113,11 +110,14 @@ const preparedFiled = () => {
 
 const shuffleConditions = () => {
 	conditions.sort( () => .5 - Math.random());
-	console.log(conditions)
 }
 
 const setShuffeledConditions = () => {
-
+	for(let i = 0; i < conditions.length; i++) {
+		for(let j = 0; j < cellObjs.length; j ++) {
+			cellObjs[j].condition = conditions[i++];
+		}
+	}
 }
 
 const cellEventFnc = (e) => {
@@ -143,13 +143,53 @@ const cellLogic = (itemId) => {
 			const thisCellCondition = this.cell.condition;
 
 			if(thisCellCondition == false) {
+				life--;
 				document.getElementById(itemId).innerHTML = doorClosed;
 				cellDeleteEvent(itemId);
+
+				if (life == 0) {
+					attemptCounter += 1;
+					loseGameLogic();
+					stopGameLogic();
+				}
 			} else {
 				document.getElementById(itemId).innerHTML = doorOpened;
+				winCounter += 1;
+				winGameLogic();
+				stopGameLogic();
 			}
 		}
 	}
+}
+
+const stopGameLogic = () => {
+	for(el of cellObjs) {
+		document.getElementById(el.id).removeEventListener('click', cellEventFnc);
+	}
+}
+
+const refreshWinCounter = () => {
+	winCounterText.innerHTML = `Win : ${winCounter}`;
+}
+
+const refreshAttemptCounter = () => {
+	attemptCounterText.innerHTML = `Attempt : ${attemptCounter}`;
+}
+
+const winGameLogic = () => {
+	headerText.innerHTML = 'YOU WON!'
+	headerText.style.color = 'green';
+	refreshWinCounter();
+}
+
+const loseGameLogic = () => {
+	headerText.innerHTML = 'YOU LOST!'
+	headerText.style.color = 'red';
+	refreshAttemptCounter();
+}
+
+const replaceHeart = () => {
+	
 }
 
 
@@ -162,8 +202,10 @@ const cellLogic = (itemId) => {
 
 const lauchAll = () => {
 	shuffleConditions();
+	setShuffeledConditions();
 	preparedFiled();
 	cellSetEvent();
+
 	
 }
 
