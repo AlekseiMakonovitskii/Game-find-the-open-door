@@ -54,7 +54,7 @@ h1 {
 	justify-items: space-between;
 	align-items: center;
 	font-size: 25px;
-	margin-top: 50px;
+	margin-top: 30px;
 	cursor: pointer;
 }
 
@@ -86,7 +86,7 @@ h1 {
 
 
 #buttonArea {
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
 #startGame {
