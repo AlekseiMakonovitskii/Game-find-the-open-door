@@ -114,7 +114,7 @@ h1 {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 	#gameField {
 		min-height: 300px;
 		min-width: 300px;
