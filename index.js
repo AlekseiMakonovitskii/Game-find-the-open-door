@@ -9,12 +9,15 @@ let lose = false;
 let life = 3;
 let winCounter = 0;
 let attemptCounter = 0;
+let heartIndex = -1;
 
 const attemptCounterText = document.querySelector('#Attempt');
 const winCounterText = document.querySelector('#Win');
 const headerText = document.querySelector('#headerText');
 const startBtn = document.querySelector('#startGame');
 const cells = document.querySelectorAll('.cell');
+const hearts = document.querySelectorAll('.heart');
+
 let cellId;
 
 const conditions = [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, ]
@@ -144,17 +147,20 @@ const cellLogic = (itemId) => {
 
 			if(thisCellCondition == false) {
 				life--;
+				heartIndex++;
 				document.getElementById(itemId).innerHTML = doorClosed;
 				cellDeleteEvent(itemId);
+				replaceHeart();
 
 				if (life == 0) {
-					attemptCounter += 1;
+					attemptCounter++;
+					lose = true;
 					loseGameLogic();
 					stopGameLogic();
 				}
 			} else {
 				document.getElementById(itemId).innerHTML = doorOpened;
-				winCounter += 1;
+				winCounter++;
 				winGameLogic();
 				stopGameLogic();
 			}
@@ -189,10 +195,27 @@ const loseGameLogic = () => {
 }
 
 const replaceHeart = () => {
-	
+	hearts[heartIndex].innerHTML = heartCrack;
+}
+
+const refreshLogic = () => {
+	console.log('refreshed')
+	inProgress = false;
+	lose = false;
+	life = 3;
+	heartIndex = -1;
 }
 
 
+const openPageLogic = () => {
+	for(let el of cellObjs) {
+		if (el.condition == false) {
+			document.getElementById(el.id).innerHTML = doorClosed;
+		} else {
+			document.getElementById(el.id).innerHTML = doorOpened;
+		}
+	}
+}
 
 
 
@@ -205,8 +228,18 @@ const lauchAll = () => {
 	setShuffeledConditions();
 	preparedFiled();
 	cellSetEvent();
-
+	inProgress = true;
 	
 }
 
-lauchAll();
+// lauchAll();
+startBtn.addEventListener('click', () => {
+	
+	if (!inProgress) {
+		lauchAll();
+	} else {
+		refreshLogic();
+	}
+});
+
+openPageLogic();
