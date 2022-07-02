@@ -211,7 +211,6 @@ const refreshLogic = () => {
 	lauchAll();
 }
 
-
 const openPageLogic = () => {
 	for(let el of cellObjs) {
 		if (el.condition == false) {
@@ -234,12 +233,6 @@ const returnHeaderText = () => {
 	refreshWinCounter();
 }
 
-
-
-
-
-
-
 const lauchAll = () => {
 	console.log('launched')
 	shuffleConditions();
@@ -250,7 +243,6 @@ const lauchAll = () => {
 	
 }
 
-// lauchAll();
 startBtn.addEventListener('click', () => {
 	
 	if (inProgress) {
