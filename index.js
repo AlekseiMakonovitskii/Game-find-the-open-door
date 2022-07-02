@@ -10,6 +10,7 @@ let life = 3;
 let winCounter = 0;
 let attemptCounter = 0;
 let heartIndex = -1;
+let btnPressed = false;
 
 const attemptCounterText = document.querySelector('#Attempt');
 const winCounterText = document.querySelector('#Win');
@@ -142,7 +143,7 @@ const cellDeleteEvent = (itemId) => {
 const cellLogic = (itemId) => {
 	for(cell of cellObjs) {
 
-		if(cell.id == itemId) {
+		if(cell.id == itemId && life > 0) {
 			const thisCellCondition = this.cell.condition;
 
 			if(thisCellCondition == false) {
@@ -153,12 +154,14 @@ const cellLogic = (itemId) => {
 				replaceHeart();
 
 				if (life == 0) {
+					console.log("lose")
 					attemptCounter++;
 					lose = true;
 					loseGameLogic();
 					stopGameLogic();
 				}
 			} else {
+				console.log("win")
 				document.getElementById(itemId).innerHTML = doorOpened;
 				winCounter++;
 				winGameLogic();
@@ -204,6 +207,8 @@ const refreshLogic = () => {
 	lose = false;
 	life = 3;
 	heartIndex = -1;
+	addWholeHearts();
+	lauchAll();
 }
 
 
@@ -217,6 +222,18 @@ const openPageLogic = () => {
 	}
 }
 
+const addWholeHearts = () => {
+	hearts[0].innerHTML = heartSolid;
+	hearts[1].innerHTML = heartSolid;
+	hearts[2].innerHTML = heartSolid;
+}
+
+const returnHeaderText = () => {
+	headerText.innerHTML = 'Find the open door!'
+	headerText.style.color = 'white';
+	refreshWinCounter();
+}
+
 
 
 
@@ -224,6 +241,7 @@ const openPageLogic = () => {
 
 
 const lauchAll = () => {
+	console.log('launched')
 	shuffleConditions();
 	setShuffeledConditions();
 	preparedFiled();
@@ -235,10 +253,12 @@ const lauchAll = () => {
 // lauchAll();
 startBtn.addEventListener('click', () => {
 	
-	if (!inProgress) {
-		lauchAll();
-	} else {
+	if (inProgress) {
 		refreshLogic();
+		returnHeaderText();
+	} else {
+		lauchAll();
+		returnHeaderText();
 	}
 });
 
